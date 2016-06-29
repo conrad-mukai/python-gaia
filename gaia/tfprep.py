@@ -6,7 +6,6 @@ Preparation for running Terraform commands.
 # system imports
 import os
 import subprocess
-import glob
 
 # local imports
 from check import check_requirements

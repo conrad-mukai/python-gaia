@@ -5,7 +5,6 @@ Module for the command line interface.
 
 # system imports
 import sys
-import os
 import argparse
 
 # local imports

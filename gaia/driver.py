@@ -3,10 +3,6 @@ gaia.driver
 Main program driver.
 """
 
-# system imports
-import os
-import subprocess
-
 # local imports
 from tfprep import setup_terraform
 from tfexec import run_terraform

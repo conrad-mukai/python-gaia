@@ -1,0 +1,23 @@
+#!/usr/bin/env python2.7
+"""
+gaia
+Script to deploy CMX applications into AWS using Terraform.
+"""
+
+# system imports
+import sys
+import os
+
+# update system path
+sys.path.insert(0,
+                os.path.normpath(os.path.join(os.path
+                                              .dirname(os.path
+                                                       .realpath(__file__)),
+                                 os.pardir)))
+
+# cmxgo imports
+from gaia.cli import main
+
+
+if __name__ == '__main__':
+    sys.exit(main())

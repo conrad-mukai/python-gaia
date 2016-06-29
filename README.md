@@ -5,7 +5,7 @@ Wrapper script to run Terraform.
 ## Usage
 
     usage: gaia [-h] [-g] [-i] [-a APP_NAME] [-v APP_VERSION] [-p AWS_PROFILE]
-                [-t TERRAFORM_HOME]
+                [-t TERRAFORM_HOME] [-u]
                 {apply,destroy,plan,show} [{sandbox,stage,prod}]
     
     build a CMX cloud
@@ -30,3 +30,4 @@ Wrapper script to run Terraform.
                             AWS configuration profile
       -t TERRAFORM_HOME, --terraform-home TERRAFORM_HOME
                             directory containing terraform files
+      -u, --update          update all terraform modules before running command

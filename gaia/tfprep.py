@@ -15,8 +15,7 @@ from config import get_config, get_gaia_config
 # map of AWS configuration parameters to environment variables
 PARAM_TO_ENV_MAP = {
     'aws_access_key_id': 'AWS_ACCESS_KEY_ID',
-    'aws_secret_access_key': 'AWS_SECRET_ACCESS_KEY',
-    'region': 'AWS_DEFAULT_REGION'
+    'aws_secret_access_key': 'AWS_SECRET_ACCESS_KEY'
 }
 
 

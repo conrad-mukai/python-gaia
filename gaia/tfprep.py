@@ -106,8 +106,7 @@ def _set_remote(terraform_dir, region, environment, app_name, app_version,
     elif infrastructure:
         s3_path = 'infrastructure/%s/%s' % (app_name, environment)
     else:
-        s3_path = 'applications/%s/%s' % (_get_app_id(app_name,
-                                                      app_version),
+        s3_path = 'applications/%s/%s' % (_get_app_id(app_name, app_version),
                                           environment)
     s3_path += '/terraform.tfstate'
     if _update_remote(tfstate_path, s3_remote_bucket, s3_path, region):

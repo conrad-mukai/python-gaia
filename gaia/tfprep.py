@@ -6,6 +6,7 @@ Preparation for running Terraform commands.
 # system imports
 import os
 import subprocess
+import json
 
 # local imports
 from check import check_requirements
@@ -100,16 +101,15 @@ def _set_remote(terraform_dir, region, environment, app_name, app_version,
                                 _get_tfstate_name(environment, app_name,
                                                   app_version, glb,
                                                   infrastructure))
-    if not os.path.exists(tfstate_path):
-        if glb:
-            s3_path = 'global'
-        elif infrastructure:
-            s3_path = 'infrastructure/%s/%s' % (app_name, environment)
-        else:
-            s3_path = 'applications/%s/%s' % (_get_app_id(app_name,
-                                                          app_version),
-                                              environment)
-        s3_path += '/terraform.tfstate'
+    if glb:
+        s3_path = 'global'
+    elif infrastructure:
+        s3_path = 'infrastructure/%s/%s' % (app_name, environment)
+    else:
+        s3_path = 'applications/%s/%s' % (_get_app_id(app_name, app_version),
+                                          environment)
+    s3_path += '/terraform.tfstate'
+    if _update_remote(tfstate_path, s3_remote_bucket, s3_path, region):
         proc = subprocess.Popen(['terraform', 'remote', 'config', '-backend=s3',
                                  '-backend-config',
                                  'bucket=%s' % s3_remote_bucket,
@@ -124,6 +124,24 @@ def _set_remote(terraform_dir, region, environment, app_name, app_version,
         os.rename(os.path.join(tf_config_dir, 'terraform.tfstate'),
                   tfstate_path)
     return tfstate_path, app_version
+
+
+def _update_remote(tfstate_path, s3_remote_bucket, s3_path, region):
+    if not os.path.exists(tfstate_path):
+        return True
+    with open(tfstate_path) as f:
+        state = json.load(f)
+    remote = state.get('remote')
+    if not remote:
+        return True
+    config = remote['config']
+    if config['bucket'] != s3_remote_bucket:
+        return True
+    if config['key'] != s3_path:
+        return True
+    if config.get('region') != region:
+        return True
+    return False
 
 
 def _set_app_version(environment, app_version):

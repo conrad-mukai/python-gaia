@@ -25,11 +25,11 @@ def setup_terraform(terraform_home, aws_profile, glb, infrastructure,
     region, app_name, s3_remote_bucket, terraform_dir \
         = _validate_inputs(terraform_home, aws_profile, glb, infrastructure,
                            app_name)
-    _get_modules(terraform_dir, update)
     tfstate_path, app_version = _set_remote(terraform_dir, region, environment,
                                             app_name, app_version,
                                             s3_remote_bucket, glb,
                                             infrastructure)
+    _get_modules(terraform_dir, update)
     return terraform_dir, tfstate_path, app_version
 
 

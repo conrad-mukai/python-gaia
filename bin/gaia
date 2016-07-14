@@ -15,7 +15,7 @@ sys.path.insert(0,
                                                        .realpath(__file__)),
                                  os.pardir)))
 
-# cmxgo imports
+# gaia imports
 from gaia.cli import main
 
 
